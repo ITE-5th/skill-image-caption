@@ -1,41 +1,19 @@
 {
-	"name": "Image Caption",
-	"skillMetadata": {
-		"sections": [
-			{
-				"name": "Section Friendly Display Name for Home.Mycroft.AI",
-				"fields": [
-					{
-						"name": "internal_python_variable_name",
-						"type": "text",
-						"label": "Setting Friendly Display Name",
-						"value": "",
-						"placeholder": "demo prompt in the input box"
-					}
-				]
-			},
-			{
-				"name": "Login --Another Section But This One Has Two Values--",
-				"fields": [
-					{
-						"type": "label",
-						"label": "Just a little bit of extra info for the user to understand following settings"
-					},
-					{
-						"name": "username",
-						"type": "text",
-						"label": "Username",
-						"value": ""
-					},
-					{
-						"name": "password",
-						"type": "password",
-						"label": "Password",
-						"value": ""
-					}
-				]
-			}
-		]
-	}
+    "name": "Image Captioning",
+    "color": "#22a7f0",
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "Image Captioning",
+                "fields": [
+                    {
+                        "name": "network",
+                        "type": "checkbox",
+                        "label": "network for extracting image features",
+                        "value": "false"
+                    }
+                ]
+            }
+        ]
+    }
 }
-
