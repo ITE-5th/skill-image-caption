@@ -8,9 +8,9 @@ class ImageCaptionSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder().require('ImageCaption'))
     def handle_image_caption(self, message):
+        print(message)
         self.speak_dialog('image.caption')
 
 
 def create_skill():
     return ImageCaptionSkill()
-
