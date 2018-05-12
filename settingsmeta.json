@@ -1,0 +1,25 @@
+{
+  "name": "Image Captioning Skill",
+  "skillMetadata": {
+    "sections": [
+      {
+        "name": "Model",
+        "fields": [
+          {
+            "name": "model",
+            "type": "select",
+            "label": "Options",
+            "options": "vgg|resnet",
+            "value": "vgg"
+          },
+          {
+            "name": "server_url",
+            "type": "text",
+            "label": "Remote Server URL:",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  }
+}

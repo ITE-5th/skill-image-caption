@@ -34,7 +34,7 @@ class ImageCaptionSkill(MycroftSkill):
         if "server_url" not in self.settings:
             self.settings["server_url"] = "192.168.1.7"
 
-        create_settings_meta()
+        # create_settings_meta()
 
         LOG.info("Image Captioning Skill started")
         # TODO resize image according to specific network
