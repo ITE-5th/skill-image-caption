@@ -33,9 +33,13 @@ class ImageCaptionSkill(MycroftSkill):
             self.settings["model"] = "vgg"
         if "server_url" not in self.settings:
             self.settings["server_url"] = "192.168.1.7"
-
+        self.camera = None
+        self.socket = None
+        self.port = None
+        self.host = None
         # create_settings_meta()
 
+    def initialize(self):
         LOG.info("Image Captioning Skill started")
         # TODO resize image according to specific network
         self.camera = Camera(width=800, height=600)
