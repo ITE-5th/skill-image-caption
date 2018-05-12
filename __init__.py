@@ -1,9 +1,6 @@
 LOG.warning('Running Skill Image Captioning 0')
-try:
-    import cPickle as pickle
-except:
-    import pickle
 
+import pickle
 import socket
 from os.path import join, dirname, exists
 
@@ -16,6 +13,7 @@ try:
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
+
     msm = MycroftSkillsManager()
     msm.install("https://github.com/ITE-5th/skill-image-caption")
 
