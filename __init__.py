@@ -211,6 +211,7 @@ LOG.warning('Running Skill Image Captioning 4')
 
 pi_camera = picamera.PiCamera()
 
+LOG.warning('Running Skill Image Captioning 5')
 
 class Camera:
 
