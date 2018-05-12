@@ -47,7 +47,7 @@ class ImageCaptionSkill(MycroftSkill):
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
 
-        self.socket.connect((self.host, self.port))
+        # self.socket.connect((self.host, self.port))
         LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
 
     @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
@@ -59,8 +59,9 @@ class ImageCaptionSkill(MycroftSkill):
             return False
 
         order_message = ImageToTextMessage(image)
-        ConnectionHelper.send_pickle(self.socket, order_message)
-        response = ConnectionHelper.receive_json(self.socket)
+        # ConnectionHelper.send_pickle(self.socket, order_message)
+        # response = ConnectionHelper.receive_json(self.socket)
+        response = 'image.caption'
         print(message)
         self.speak_dialog('image.caption', response)
         return True
@@ -70,7 +71,7 @@ class ImageCaptionSkill(MycroftSkill):
         LOG.info("Image Captioning Skill CLOSED")
         ConnectionHelper.send_pickle(self.socket, CloseMessage())
         print('closing socket')
-        self.socket.close()
+        # self.socket.close()
 
 
 def create_skill():
@@ -143,7 +144,7 @@ class ConnectionHelper:
         try:
             serialized = pickle.dumps(object)
         except (TypeError, ValueError) as e:
-            raise Exception('You can only send JSON-serializable data')
+            raise Exception('You can only send Pickle data')
         # send the length of the serialized data first
         socket.send('%d\n'.encode() % len(serialized))
         # send the serialized data
