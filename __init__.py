@@ -43,7 +43,7 @@ class ImageCaptionSkill(MycroftSkill):
         self.host = self.settings["server_url"]
 
         self.socket.connect((self.host, self.port))
-        LOG.info('connected to server:' + self.host + ' : ' + {str(self.port)})
+        LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
 
     @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
     def handle_image_caption(self, message):
