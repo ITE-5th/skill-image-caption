@@ -61,9 +61,9 @@ class ImageCaptionSkill(MycroftSkill):
         order_message = ImageToTextMessage(image)
         # ConnectionHelper.send_pickle(self.socket, order_message)
         # response = ConnectionHelper.receive_json(self.socket)
-        response = 'image.caption'
+        response = 'image captioning'
         print(message)
-        self.speak('we recognise .' + response)
+        self.speak("say my name is . your name" + response)
         return True
 
     def shutdown(self):
