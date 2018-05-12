@@ -6,9 +6,9 @@ from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
-from misc.connection_helper import ConnectionHelper
-from misc.order_message.close_message import CloseMessage
-from misc.order_message.image_to_text_message import ImageToTextMessage
+from connection_helper import ConnectionHelper
+from order_message.close_message import CloseMessage
+from order_message.image_to_text_message import ImageToTextMessage
 
 try:
     from camera import Camera
