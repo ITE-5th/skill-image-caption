@@ -62,15 +62,13 @@ class ImageCaptionSkill(MycroftSkill):
         # ConnectionHelper.send_pickle(self.socket, order_message)
         # response = ConnectionHelper.receive_json(self.socket)
         response = 'image captioning'
-        print(message)
         self.speak("say my name is . your name" + response)
         return True
 
     def shutdown(self):
         super(ImageCaptionSkill, self).shutdown()
         LOG.info("Image Captioning Skill CLOSED")
-        ConnectionHelper.send_pickle(self.socket, CloseMessage())
-        print('closing socket')
+        # ConnectionHelper.send_pickle(self.socket, CloseMessage())
         # self.socket.close()
 
 
