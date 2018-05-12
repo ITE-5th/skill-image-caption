@@ -1,3 +1,8 @@
+try:
+    import cPickle as pickle
+except:
+    import pickle
+
 import socket
 from os.path import join, dirname, exists
 
@@ -17,7 +22,6 @@ except ImportError:
     msm.reload_skill("skill-image-caption")
 
 IMAGE_CAPTIONING_PORT = 9001
-LOG.warning('Running Skill Image Captioning ')
 
 
 class ImageCaptionSkill(MycroftSkill):
@@ -107,7 +111,6 @@ def create_settings_meta():
 
 # Connection Helper
 import json
-import pickle
 
 
 class ConnectionHelper:
