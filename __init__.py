@@ -1,3 +1,4 @@
+LOG.warning('Running Skill Image Captioning 0')
 try:
     import cPickle as pickle
 except:
