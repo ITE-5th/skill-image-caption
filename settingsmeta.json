@@ -9,7 +9,7 @@
             "name": "model",
             "type": "select",
             "label": "Image Model",
-            "options": "vgg;vgg|resnet;resnet",
+            "options": "resnet;resnet",
             "value": "vgg;vgg"
           },
           {
