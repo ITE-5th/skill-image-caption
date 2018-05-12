@@ -3,7 +3,7 @@
   "skillMetadata": {
     "sections": [
       {
-        "name": "Model",
+        "name": "Settings",
         "fields": [
           {
             "name": "model",
