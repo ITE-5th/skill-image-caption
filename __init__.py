@@ -9,7 +9,7 @@ try:
     from camera import Camera
 except ImportError:
     # re-install yourself
-    from py_msm import MycroftSkillsManager
+    from msm import MycroftSkillsManager
 
     msm = MycroftSkillsManager()
     msm.install_by_url("https://github.com/ITE-5th/skill-image-caption", True)
