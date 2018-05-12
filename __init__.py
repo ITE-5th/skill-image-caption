@@ -1,10 +1,10 @@
 from mycroft.util.log import LOG
+from pythonlangutil.singleton import Singleton
 
 LOG.warning('Running Skill Image Captioning 0')
 
 import pickle
 import socket
-from os.path import join, dirname, exists
 
 from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
@@ -57,7 +57,10 @@ class ImageCaptionSkill(MycroftSkill):
         image, _ = self.camera.take_image()
         if image is None:
             return False
+        a = ClientSocket.get_instance()
 
+        LOG.info('Handling ' + a.x)
+        a.increment()
         order_message = ImageToTextMessage(image)
         # ConnectionHelper.send_pickle(self.socket, order_message)
         # response = ConnectionHelper.receive_json(self.socket)
@@ -76,37 +79,13 @@ def create_skill():
     return ImageCaptionSkill()
 
 
-def create_settings_meta():
-    meta = {
-        "name": "Image Captioning Skill",
-        "skillMetadata": {
-            "sections": [
-                {
-                    "name": "Model",
-                    "fields":
-                        [
-                            {
-                                "name": "model",
-                                "type": "select",
-                                "label": "Options",
-                                "options": "vgg|resnet",
-                                "value": "vgg"
-                            },
-                            {
-                                "name": "server_url",
-                                "type": "text",
-                                "label": "Remote Server URL:",
-                                "value": ""
-                            }
-                        ]
-                }
-            ]
-        }
-    }
-    meta_path = join(dirname(__file__), 'settingsmeta.json')
-    if not exists(meta_path):
-        with open(meta_path, 'w') as fp:
-            json.dump(meta, fp)
+@Singleton()
+class ClientSocket:
+    def __init__(self):
+        self.x = 10
+
+    def increment(self):
+        self.x += 1
 
 
 # Connection Helper
