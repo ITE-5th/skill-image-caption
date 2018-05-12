@@ -36,14 +36,14 @@ class ImageCaptionSkill(MycroftSkill):
         create_settings_meta()
 
         LOG.info("Image Captioning Skill started")
-
+        # TODO resize image according to specific network
         self.camera = Camera(width=800, height=600)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
 
         self.socket.connect((self.host, self.port))
-        LOG.info(f'connected to server {self.host } : {str(self.port)} ')
+        LOG.info('connected to server:' + self.host + ' : ' + {str(self.port)})
 
     @intent_handler(IntentBuilder("correct_name").require('ImageCaption'))
     def handle_image_caption(self, message):
