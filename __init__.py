@@ -1,3 +1,5 @@
+from mycroft.util.log import LOG
+
 LOG.warning('Running Skill Image Captioning 0')
 
 import pickle
@@ -6,7 +8,6 @@ from os.path import join, dirname, exists
 
 from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
-from mycroft.util.log import LOG
 
 try:
     import picamera
