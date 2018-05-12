@@ -15,11 +15,8 @@ try:
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
-
     msm = MycroftSkillsManager()
-    msm.install_by_url("https://github.com/ITE-5th/skill-image-caption", True)
-    # trigger reload
-    msm.reload_skill("skill-image-caption")
+    msm.install("https://github.com/ITE-5th/skill-image-caption")
 
 IMAGE_CAPTIONING_PORT = 9001
 
@@ -212,6 +209,7 @@ LOG.warning('Running Skill Image Captioning 4')
 pi_camera = picamera.PiCamera()
 
 LOG.warning('Running Skill Image Captioning 5')
+
 
 class Camera:
 
