@@ -23,6 +23,8 @@ except ImportError:
 
 IMAGE_CAPTIONING_PORT = 9001
 
+LOG.warning('Running Skill Image Captioning 1')
+
 
 class ImageCaptionSkill(MycroftSkill):
     def __init__(self):
@@ -112,6 +114,8 @@ def create_settings_meta():
 # Connection Helper
 import json
 
+LOG.warning('Running Skill Image Captioning 2')
+
 
 class ConnectionHelper:
 
@@ -178,6 +182,7 @@ class ConnectionHelper:
 
 # Message Classes
 
+
 class Message:
     pass
 
@@ -198,7 +203,11 @@ class ImageToTextMessage(ImageMessage):
 # Camera
 
 import base64
+
+LOG.warning('Running Skill Image Captioning 3')
 import time
+
+LOG.warning('Running Skill Image Captioning 4')
 
 pi_camera = picamera.PiCamera()
 
