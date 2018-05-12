@@ -6,7 +6,7 @@ from mycroft import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
 try:
-    from camera import Camera
+    import picamera
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
@@ -196,8 +196,6 @@ class ImageToTextMessage(ImageMessage):
 
 import base64
 import time
-
-import picamera
 
 pi_camera = picamera.PiCamera()
 
