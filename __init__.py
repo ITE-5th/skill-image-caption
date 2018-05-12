@@ -63,7 +63,7 @@ class ImageCaptionSkill(MycroftSkill):
         # response = ConnectionHelper.receive_json(self.socket)
         response = 'image.caption'
         print(message)
-        self.speak_dialog('image.caption', response)
+        self.speak_dialog('we recognise .' + response)
         return True
 
     def shutdown(self):
