@@ -42,12 +42,8 @@ class ImageCaptionSkill(MycroftSkill):
         LOG.info("Image Captioning Skill started")
         # TODO resize image according to specific network
         self.camera = Camera(width=800, height=600)
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
-
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.host, self.port))
 
         LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
 
@@ -59,18 +55,21 @@ class ImageCaptionSkill(MycroftSkill):
         if image is None:
             return False
 
-        self.socket = ClientSocket.get_instance()
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((self.host, self.port))
         order_message = ImageToTextMessage(image)
         ConnectionHelper.send_pickle(self.socket, order_message)
         response = ConnectionHelper.receive_json(self.socket)
-        self.speak("we recognise ." + response)
+        print(response)
+        self.speak("we recognise .")
+        ConnectionHelper.send_pickle(self.socket, CloseMessage())
+        self.socket.close()
+
         return True
 
     def stop(self):
         super(ImageCaptionSkill, self).shutdown()
         LOG.info("Image Captioning Skill CLOSED")
-        ConnectionHelper.send_pickle(self.socket, CloseMessage())
-        self.socket.close()
 
 
 def create_skill():
