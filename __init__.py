@@ -208,6 +208,7 @@ LOG.warning('Running Skill Image Captioning 3')
 import time
 
 LOG.warning('Running Skill Image Captioning 4')
+import os
 
 
 class Camera:
@@ -218,8 +219,7 @@ class Camera:
         self.resolution = (width, height)
 
     def take_image(self, face_count=0):
-        import os
-        temp_dir = './temp/'
+        temp_dir = FilePathManager.resolve('temp/')
         if not os.path.exists(temp_dir):
             os.makedirs(temp_dir)
 
@@ -248,3 +248,13 @@ class Camera:
         has_one_face = len(rects) == faces_count
         print(has_one_face)
         return has_one_face
+
+
+# File Path Manager
+
+class FilePathManager:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    @staticmethod
+    def resolve(path):
+        return "{}/{}".format(FilePathManager.base_dir, path)
