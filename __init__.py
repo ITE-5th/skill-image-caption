@@ -1,5 +1,4 @@
 from mycroft.util.log import LOG
-from pythonlangutil.singleton import Singleton
 
 LOG.warning('Running Skill Image Captioning 0')
 
@@ -47,7 +46,9 @@ class ImageCaptionSkill(MycroftSkill):
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
 
-        # self.socket.connect((self.host, self.port))
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((self.host, self.port))
+
         LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
 
     @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
@@ -57,35 +58,23 @@ class ImageCaptionSkill(MycroftSkill):
         image, _ = self.camera.take_image()
         if image is None:
             return False
-        a = ClientSocket.get_instance()
 
-        LOG.info('Handling ' + a.x)
-        a.increment()
+        self.socket = ClientSocket.get_instance()
         order_message = ImageToTextMessage(image)
-        # ConnectionHelper.send_pickle(self.socket, order_message)
-        # response = ConnectionHelper.receive_json(self.socket)
-        response = 'image captioning'
+        ConnectionHelper.send_pickle(self.socket, order_message)
+        response = ConnectionHelper.receive_json(self.socket)
         self.speak("we recognise ." + response)
         return True
 
     def stop(self):
         super(ImageCaptionSkill, self).shutdown()
         LOG.info("Image Captioning Skill CLOSED")
-        # ConnectionHelper.send_pickle(self.socket, CloseMessage())
-        # self.socket.close()
+        ConnectionHelper.send_pickle(self.socket, CloseMessage())
+        self.socket.close()
 
 
 def create_skill():
     return ImageCaptionSkill()
-
-
-@Singleton()
-class ClientSocket:
-    def __init__(self):
-        self.x = 10
-
-    def increment(self):
-        self.x += 1
 
 
 # Connection Helper
