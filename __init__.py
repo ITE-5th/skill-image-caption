@@ -52,7 +52,7 @@ class ImageCaptionSkill(MycroftSkill):
 
     @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
     def handle_image_caption(self, message):
-        LOG.info('Handling ' + message)
+        # LOG.info('Handling ' + message)
 
         image, _ = self.camera.take_image()
         if image is None:
