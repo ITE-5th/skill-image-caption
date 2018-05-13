@@ -16,7 +16,7 @@
             "name": "server_url",
             "type": "text",
             "label": "Remote Server URL:",
-            "value": ""
+            "value": "192.168.1.7"
           }
         ]
       }
