@@ -15,13 +15,14 @@ import imp
 
 from mycroft.util.log import LOG
 
-foo = imp.load_source('a.A', FilePathManager.resolve('message/a.py'))
+itt = imp.load_source('ImageToTextMessage', FilePathManager.resolve('message/image_to_text_message.py'))
+close = imp.load_source('close_message.CloseMessage', FilePathManager.resolve('message/close_message.py'))
 
+close.CloseMessage()
 LOG.warning('Running Skill Image Captioning 0')
+itt.ImageToTextMessage()
 
-xx = foo.A()
-
-LOG.warning('Running Skill Image Captioning ' + xx.data)
+LOG.warning('Running Skill Image Captioning ')
 
 import socket
 
