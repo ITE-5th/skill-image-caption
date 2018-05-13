@@ -15,7 +15,7 @@ import imp
 
 from mycroft.util.log import LOG
 
-msg = imp.load_source('ImageToTextMessage', FilePathManager.resolve('message/message.py'))
+msg = imp.load_source('message.ImageToTextMessage', FilePathManager.resolve('message/message.py'))
 
 LOG.warning('Running Skill Image Captioning 0')
 
