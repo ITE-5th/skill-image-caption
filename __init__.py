@@ -57,6 +57,8 @@ class ImageCaptionSkill(MycroftSkill):
 
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+            LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
             self.socket.connect((self.host, self.port))
             order_message = ImageToTextMessage(image)
             ConnectionHelper.send_pickle(self.socket, order_message)
