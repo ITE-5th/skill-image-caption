@@ -1,6 +1,10 @@
 from mycroft.util.log import LOG
 
+from message.a import A
+
 LOG.warning('Running Skill Image Captioning 0')
+A()
+LOG.warning('Running Skill Image Captioning 10102100')
 
 import socket
 
