@@ -18,9 +18,7 @@ from mycroft.util.log import LOG
 msg = imp.load_source('ImageToTextMessage', FilePathManager.resolve('message/message.py'))
 
 LOG.warning('Running Skill Image Captioning 0')
-msg.ImageToTextMessage()
 
-LOG.warning('Running Skill Image Captioning ')
 
 import socket
 
