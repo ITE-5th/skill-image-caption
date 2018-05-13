@@ -8,8 +8,9 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from message.a import A
 
 LOG.warning('Running Skill Image Captioning 0')
-A()
-LOG.warning('Running Skill Image Captioning 10102100')
+xx = A()
+
+LOG.warning('Running Skill Image Captioning ' + xx.data)
 
 import socket
 
@@ -18,7 +19,7 @@ from mycroft import MycroftSkill, intent_handler
 
 try:
     import picamera
-    import dill
+    import pickle
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
