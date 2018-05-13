@@ -55,16 +55,21 @@ class ImageCaptionSkill(MycroftSkill):
         if image is None:
             return False
 
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.host, self.port))
-        order_message = ImageToTextMessage(image)
-        ConnectionHelper.send_pickle(self.socket, order_message)
-        response = ConnectionHelper.receive_json(self.socket)
-        print(response)
-        self.speak("we recognise .")
-        ConnectionHelper.send_pickle(self.socket, CloseMessage())
-        self.socket.close()
+        try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.connect((self.host, self.port))
+            order_message = ImageToTextMessage(image)
+            ConnectionHelper.send_pickle(self.socket, order_message)
+            response = ConnectionHelper.receive_json(self.socket)
+            print(response)
+            self.speak("we recognise .")
+            ConnectionHelper.send_pickle(self.socket, CloseMessage())
+            self.socket.close()
+        except Exception as e:
+            print(e)
+            self.speak("Exveption")
 
+            return False
         return True
 
     def stop(self):
