@@ -1,4 +1,4 @@
-from message.message import AMessage
+from message.a_message import AMessage
 
 
 class CloseMessage(AMessage):
