@@ -1,4 +1,5 @@
 import os
+import sys
 
 from mycroft.util.log import LOG
 
