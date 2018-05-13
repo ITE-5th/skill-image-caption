@@ -8,8 +8,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from message.a import A
 
 LOG.warning('Running Skill Image Captioning 0')
-xx = A()
 
+xx = A()
 LOG.warning('Running Skill Image Captioning ' + xx.data)
 
 import socket
