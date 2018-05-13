@@ -27,7 +27,7 @@ from mycroft import MycroftSkill, intent_handler
 
 try:
     import picamera
-    import pickle
+    import dill as pickle
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
