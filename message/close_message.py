@@ -1,5 +1,5 @@
-from message.message import Message
+from message.message import AMessage
 
 
-class CloseMessage(Message):
+class CloseMessage(AMessage):
     pass
