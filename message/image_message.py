@@ -1,4 +1,4 @@
-from server.message.message import Message
+from message.message import Message
 
 
 class ImageMessage(Message):
