@@ -70,7 +70,9 @@ class ImageCaptionSkill(MycroftSkill):
             ConnectionHelper.send_pickle(self.socket, CloseMessage())
             self.socket.close()
         except Exception as e:
+            print('tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
             print(e)
+            print('tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
             self.speak("Exveption")
 
             return False
