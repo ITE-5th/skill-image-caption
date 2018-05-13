@@ -128,7 +128,7 @@ class ConnectionHelper:
     @staticmethod
     def send_pickle(socket, object):
         try:
-            serialized = dill.dumps(object)
+            serialized = pickle.dumps(object)
         except (TypeError, ValueError) as e:
             raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
@@ -140,7 +140,7 @@ class ConnectionHelper:
     def receive_pickle(socket):
         view = ConnectionHelper.receive(socket)
         try:
-            deserialized = dill.loads(view)
+            deserialized = pickle.loads(view)
         except (TypeError, ValueError) as e:
             raise Exception('Data received was not in JSON format')
         return deserialized
