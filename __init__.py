@@ -1,15 +1,26 @@
+# File Path Manager
+
 import os
-import sys
+
+
+class FilePathManager:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    @staticmethod
+    def resolve(path):
+        return "{}/{}".format(FilePathManager.base_dir, path)
+
+
+import imp
 
 from mycroft.util.log import LOG
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-from message.a import A
+foo = imp.load_source('a.A', FilePathManager.resolve('message/a.py'))
 
 LOG.warning('Running Skill Image Captioning 0')
 
-xx = A()
+xx = foo.A()
+
 LOG.warning('Running Skill Image Captioning ' + xx.data)
 
 import socket
@@ -234,13 +245,3 @@ class Camera:
         has_one_face = len(rects) == faces_count
         print(has_one_face)
         return has_one_face
-
-
-# File Path Manager
-
-class FilePathManager:
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-
-    @staticmethod
-    def resolve(path):
-        return "{}/{}".format(FilePathManager.base_dir, path)
