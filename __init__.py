@@ -2,7 +2,6 @@ from mycroft.util.log import LOG
 
 LOG.warning('Running Skill Image Captioning 0')
 
-import pickle
 import socket
 
 from adapt.intent import IntentBuilder
@@ -10,6 +9,7 @@ from mycroft import MycroftSkill, intent_handler
 
 try:
     import picamera
+    import dill
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
@@ -114,9 +114,9 @@ class ConnectionHelper:
     @staticmethod
     def send_pickle(socket, object):
         try:
-            serialized = pickle.dumps(object)
+            serialized = dill.dumps(object)
         except (TypeError, ValueError) as e:
-            raise Exception('You can only send Pickle data')
+            raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
         socket.send('%d\n'.encode() % len(serialized))
         # send the serialized data
@@ -126,7 +126,7 @@ class ConnectionHelper:
     def receive_pickle(socket):
         view = ConnectionHelper.receive(socket)
         try:
-            deserialized = pickle.loads(view)
+            deserialized = dill.loads(view)
         except (TypeError, ValueError) as e:
             raise Exception('Data received was not in JSON format')
         return deserialized
