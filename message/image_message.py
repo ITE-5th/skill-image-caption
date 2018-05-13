@@ -1,6 +1,3 @@
-from message.a_message import AMessage
+from message.message import Message
 
 
-class ImageMessage(AMessage):
-    def __init__(self, image):
-        self.image = image

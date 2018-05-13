@@ -1,5 +1,3 @@
-from message.a_message import AMessage
+from message.message import Message
 
 
-class CloseMessage(AMessage):
-    pass
