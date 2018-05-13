@@ -1,4 +1,8 @@
+import os
+
 from mycroft.util.log import LOG
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from message.a import A
 
