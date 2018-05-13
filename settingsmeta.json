@@ -9,8 +9,8 @@
             "name": "model",
             "type": "select",
             "label": "Image Model",
-            "options": "resnet;resnet",
-            "value": "vgg;vgg"
+            "options": "vgg|resnet",
+            "value": "vgg"
           },
           {
             "name": "server_url",
