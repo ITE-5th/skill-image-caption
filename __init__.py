@@ -60,8 +60,8 @@ class ImageCaptionSkill(MycroftSkill):
 
             LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
             self.socket.connect((self.host, self.port))
-            order_message = ImageToTextMessage(image)
-            ConnectionHelper.send_pickle(self.socket, order_message)
+
+            ConnectionHelper.send_pickle(self.socket, ImageToTextMessage(image))
             response = ConnectionHelper.receive_json(self.socket)
             print(response)
             self.speak("we recognise .")
