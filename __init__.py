@@ -17,7 +17,6 @@ from mycroft.util.log import LOG
 
 msg = imp.load_source('ImageToTextMessage', FilePathManager.resolve('message/message.py'))
 
-msg.CloseMessage()
 LOG.warning('Running Skill Image Captioning 0')
 msg.ImageToTextMessage()
 
@@ -83,12 +82,12 @@ class ImageCaptionSkill(MycroftSkill):
             self.socket.connect((self.host, self.port))
 
             LOG.info('sendinnnnnnnnnnnnnnnnnnnnnggggggggggg image')
-            ConnectionHelper.send_pickle(self.socket, ImageToTextMessage(image))
+            ConnectionHelper.send_pickle(self.socket, msg.ImageToTextMessage(image))
             LOG.info('image senttttttttttttttttttt ')
             response = ConnectionHelper.receive_json(self.socket)
             print(response)
             self.speak("we recognise .")
-            ConnectionHelper.send_pickle(self.socket, CloseMessage())
+            ConnectionHelper.send_pickle(self.socket, msg.CloseMessage())
             self.socket.close()
         except Exception as e:
             LOG.info('tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
