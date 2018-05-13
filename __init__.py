@@ -61,7 +61,9 @@ class ImageCaptionSkill(MycroftSkill):
             LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
             self.socket.connect((self.host, self.port))
 
+            LOG.info('sendinnnnnnnnnnnnnnnnnnnnnggggggggggg image')
             ConnectionHelper.send_pickle(self.socket, ImageToTextMessage(image))
+            LOG.info('image senttttttttttttttttttt ')
             response = ConnectionHelper.receive_json(self.socket)
             print(response)
             self.speak("we recognise .")
