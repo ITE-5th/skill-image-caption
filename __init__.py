@@ -1,8 +1,25 @@
+# File Path Manager
+
+import os
+
+
+class FilePathManager:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    @staticmethod
+    def resolve(path):
+        return "{}/{}".format(FilePathManager.base_dir, path)
+
+
+import imp
+
 from mycroft.util.log import LOG
+
+msg = imp.load_source('message.image_to_text_message', FilePathManager.resolve('message/image_to_text_message.py'))
 
 LOG.warning('Running Skill Image Captioning 0')
 
-import pickle
+
 import socket
 
 from adapt.intent import IntentBuilder
@@ -10,6 +27,7 @@ from mycroft import MycroftSkill, intent_handler
 
 try:
     import picamera
+    import dill as pickle
 except ImportError:
     # re-install yourself
     from msm import MycroftSkillsManager
@@ -55,16 +73,27 @@ class ImageCaptionSkill(MycroftSkill):
         if image is None:
             return False
 
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.host, self.port))
-        order_message = ImageToTextMessage(image)
-        ConnectionHelper.send_pickle(self.socket, order_message)
-        response = ConnectionHelper.receive_json(self.socket)
-        print(response)
-        self.speak("we recognise .")
-        ConnectionHelper.send_pickle(self.socket, CloseMessage())
-        self.socket.close()
+        try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+            LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
+            self.socket.connect((self.host, self.port))
+
+            LOG.info('sendinnnnnnnnnnnnnnnnnnnnnggggggggggg image')
+            ConnectionHelper.send_pickle(self.socket, msg.ImageToTextMessage(image))
+            LOG.info('image senttttttttttttttttttt ')
+            response = ConnectionHelper.receive_json(self.socket)
+            print(response)
+            self.speak("we recognise .")
+            ConnectionHelper.send_pickle(self.socket, msg.CloseMessage())
+            self.socket.close()
+        except Exception as e:
+            LOG.info('tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
+            LOG.info(str(e))
+            LOG.info('tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
+            self.speak("Exveption")
+
+            return False
         return True
 
     def stop(self):
@@ -109,7 +138,7 @@ class ConnectionHelper:
         try:
             serialized = pickle.dumps(object)
         except (TypeError, ValueError) as e:
-            raise Exception('You can only send Pickle data')
+            raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
         socket.send('%d\n'.encode() % len(serialized))
         # send the serialized data
@@ -213,13 +242,3 @@ class Camera:
         has_one_face = len(rects) == faces_count
         print(has_one_face)
         return has_one_face
-
-
-# File Path Manager
-
-class FilePathManager:
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-
-    @staticmethod
-    def resolve(path):
-        return "{}/{}".format(FilePathManager.base_dir, path)

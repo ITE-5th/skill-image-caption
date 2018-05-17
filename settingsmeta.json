@@ -9,14 +9,14 @@
             "name": "model",
             "type": "select",
             "label": "Image Model",
-            "options": "resnet;resnet",
-            "value": "vgg;vgg"
+            "options": "vgg;VGG|resnet;Resnet",
+            "value": "VGG"
           },
           {
             "name": "server_url",
             "type": "text",
             "label": "Remote Server URL:",
-            "value": ""
+            "value": "192.168.1.7"
           }
         ]
       }

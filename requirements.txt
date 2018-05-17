@@ -1,2 +1,5 @@
 msm
+picamera
+dill
+
 pythonlangutil
