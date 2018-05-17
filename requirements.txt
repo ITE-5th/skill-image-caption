@@ -1,3 +1,2 @@
 msm
-picamera
 pythonlangutil
