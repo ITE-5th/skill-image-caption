@@ -9,9 +9,10 @@ from mycroft import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
 # TODO: Make sure "." before module name is not missing
+from .code.misc.receiver import Receiver
+from .code.misc.sender import Sender
 from .code.message.image_to_text_message import ImageToTextMessage
 from .code.misc.camera import Camera
-from .code.misc.connection_helper import ConnectionHelper
 
 LOG.warning('Running Skill Image Captioning 0')
 
@@ -41,6 +42,8 @@ class ImageCaptionSkill(MycroftSkill):
         # TODO resize image according to specific network
 
         self.socket = None
+        self.receiver = None
+        self.sender = None
         self.camera = Camera(width=800, height=600)
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
@@ -50,6 +53,9 @@ class ImageCaptionSkill(MycroftSkill):
     def connect(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.host, self.port))
+        self.receiver = Receiver(self.socket, json=True)
+        self.sender = Sender(self.socket, json=True)
+
         LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
 
     # @intent_file_handler('ImageCaption.voc')
@@ -57,11 +63,22 @@ class ImageCaptionSkill(MycroftSkill):
     def caption(self, message):
         # LOG.info('Handling ' + message)
         try:
+            if not self.socket.stillconnected():
+                self.connect()
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
-            ConnectionHelper.send_json(self.socket, msg)
-            message = ConnectionHelper.receive_json(self.socket)
+            retries = 3
+            while retries > 0:
+                try:
+                    self.sender.send(self.socket, msg)
+                    retries -= 1
+                    break
+                except Exception as e:
+                    self.connect()
+                    print(str(e))
+
+            message = self.sender.send(self.socket)
             LOG.info(message)
             self.speak(message['result'])
 
