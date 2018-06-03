@@ -18,10 +18,8 @@ class Sender:
 
     def send_json(self, data):
         # try:
-        if data.__dict__:
-            serialized = json.dumps(data.__dict__)
-        else:
-            serialized = json.dumps(data)
+
+        serialized = json.dumps(data.__dict__)
 
         # except (TypeError, ValueError) as e:
         #     raise Exception('You can only send JSON-serializable data')
