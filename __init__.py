@@ -4,7 +4,7 @@
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 import socket
 
-from mycroft import MycroftSkill
+from mycroft import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
 # TODO: Make sure "." before module name is not missing
@@ -51,7 +51,8 @@ class ImageCaptionSkill(MycroftSkill):
         self.socket.connect((self.host, self.port))
         LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
 
-    @intent_file_handler('caption.intent')
+    # @intent_file_handler('ImageCaption.voc')
+    @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
     def caption(self, message):
         LOG.info('Handling ' + message)
         try:
