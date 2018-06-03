@@ -63,8 +63,6 @@ class ImageCaptionSkill(MycroftSkill):
     def caption(self, message):
         # LOG.info('Handling ' + message)
         try:
-            if not self.socket.stillconnected():
-                self.connect()
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
