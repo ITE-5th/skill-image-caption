@@ -18,7 +18,7 @@ class Sender:
 
     def send_json(self, data):
         # try:
-        if '__dict__' in data:
+        if data.__dict__:
             serialized = json.dumps(data.__dict__)
         else:
             serialized = json.dumps(data)
