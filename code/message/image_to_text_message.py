@@ -1,4 +1,4 @@
-from message.message import ImageMessage
+from .image_message import ImageMessage
 
 
 class ImageToTextMessage(ImageMessage):
