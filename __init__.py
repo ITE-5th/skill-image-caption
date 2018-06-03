@@ -1,20 +1,20 @@
 # File Path Manager
 # import os
-# import sys
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 import socket
+import sys
 
 from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
 # TODO: Make sure "." before module name is not missing
-from .code.misc.receiver import Receiver
-from .code.misc.sender import Sender
 from .code.message.image_to_text_message import ImageToTextMessage
 from .code.misc.camera import Camera
+from .code.misc.receiver import Receiver
+from .code.misc.sender import Sender
 
-LOG.warning('Running Skill Image Captioning 0')
+LOG.warning('Running Skill Image Captioning On ' + sys.version)
 
 try:
     import picamera
