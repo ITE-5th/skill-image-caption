@@ -17,7 +17,7 @@ class Sender:
 
     def send_json(self, data):
         try:
-            serialized = json.dumps(data)
+            serialized = json.dumps(data.__dict__)
         except (TypeError, ValueError) as e:
             raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
