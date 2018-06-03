@@ -43,7 +43,7 @@ class ImageCaptionSkill(MycroftSkill):
         self.camera = Camera(width=800, height=600)
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
-        LOG.info("Socket Skill started " + self.host + ":" + self.port)
+        LOG.info("Socket Skill started " + self.host + ":" + str(self.port))
         self.connect()
 
     def connect(self):
