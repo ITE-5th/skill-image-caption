@@ -3,6 +3,7 @@
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 import socket
 import sys
+import traceback
 
 from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
@@ -83,6 +84,7 @@ class ImageCaptionSkill(MycroftSkill):
         except Exception as e:
             LOG.info('Something is wrong')
             LOG.info(str(e))
+            LOG.info(str(traceback.format_exc()))
             self.speak("Exception")
             self.connect()
             return False
