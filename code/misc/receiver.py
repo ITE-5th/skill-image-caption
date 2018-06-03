@@ -4,8 +4,7 @@ import pickle
 
 class Receiver:
 
-    def __init__(self, socket, json: bool = True):
-        super().__init__()
+    def __init__(self, socket, json=True):
         self.socket = socket
 
         if json:

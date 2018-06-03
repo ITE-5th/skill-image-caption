@@ -4,8 +4,7 @@ import pickle
 
 class Sender:
 
-    def __init__(self, socket, json: bool = True) -> None:
-        super().__init__()
+    def __init__(self, socket, json=True):
         self.socket = socket
 
         if json:
@@ -22,7 +21,7 @@ class Sender:
         except (TypeError, ValueError) as e:
             raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
-        self.socket.send((str(len(serialized))+'\n').encode())
+        self.socket.send((str(len(serialized)) + '\n').encode())
         # send the serialized data
         self.socket.sendall(serialized.encode())
 
@@ -32,6 +31,6 @@ class Sender:
         except (TypeError, ValueError) as e:
             raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
-        self.socket.send((str(len(serialized))+'\n').encode())
+        self.socket.send((str(len(serialized)) + '\n').encode())
         # send the serialized data
         self.socket.sendall(serialized)
