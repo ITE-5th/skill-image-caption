@@ -39,11 +39,11 @@ class ImageCaptionSkill(MycroftSkill):
             self.settings["server_url"] = "192.168.1.7"
         # TODO resize image according to specific network
 
-        LOG.info("Socket Skill started " + self.host + ":" + self.port)
         self.socket = None
         self.camera = Camera(width=800, height=600)
         self.port = IMAGE_CAPTIONING_PORT
         self.host = self.settings["server_url"]
+        LOG.info("Socket Skill started " + self.host + ":" + self.port)
         self.connect()
 
     def connect(self):
