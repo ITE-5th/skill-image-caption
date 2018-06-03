@@ -1,4 +1,5 @@
 import json
+
 import _pickle as pickle
 
 
@@ -21,7 +22,7 @@ class Sender:
         # except (TypeError, ValueError) as e:
         #     raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
-        self.socket.send('%d\n'.encode() % len(serialized))
+        self.socket.send((str(len(serialized)) + '\n').encode())
         # send the serialized data
         self.socket.sendall(serialized.encode())
 

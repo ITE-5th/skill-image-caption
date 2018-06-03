@@ -1,5 +1,5 @@
 import json
-import pickle
+import _pickle as pickle
 
 
 class Receiver:
