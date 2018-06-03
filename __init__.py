@@ -66,15 +66,15 @@ class ImageCaptionSkill(MycroftSkill):
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
-            retries = 3
-            while retries > 0:
-                try:
-                    self.sender.send(msg)
-                    retries -= 1
-                    break
-                except Exception as e:
-                    self.connect()
-                    print(str(e))
+            # retries = 3
+            # while retries > 0:
+            #     try:
+            self.sender.send(msg)
+            #         retries -= 1
+            #         break
+            #     except Exception as e:
+            #         self.connect()
+            #         print(str(e))
 
             message = self.receiver.receive()
             LOG.info(message)
