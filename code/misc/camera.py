@@ -16,6 +16,7 @@ class Camera:
 
     def take_image(self, face_count=0):
         import os
+
         temp_dir = './temp/'
         if not os.path.exists(temp_dir):
             os.makedirs(temp_dir)

@@ -1,7 +1,7 @@
 # Connection Helper
-import _pickle as pickle
 import json
 
+import _pickle as pickle
 from mycroft.util import LOG
 
 
@@ -15,7 +15,7 @@ class ConnectionHelper:
         # except (TypeError, ValueError) as e:
         #     raise Exception('You can only send JSON-serializable data')
         # send the length of the serialized data first
-        socket.send('%d\n'.encode() % len(serialized))
+        socket.send((str(len(serialized)) + '\n').encode())
         # send the serialized data
         socket.sendall(serialized.encode())
 
