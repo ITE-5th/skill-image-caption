@@ -39,7 +39,7 @@ class ImageCaptionSkill(MycroftSkill):
         if "model" not in self.settings:
             self.settings["model"] = "vgg"
         if "server_url" not in self.settings:
-            self.settings["server_url"] = "192.168.1.7"
+            self.settings["server_url"] = "192.168.43.243"
         # TODO resize image according to specific network
 
         self.socket = None
