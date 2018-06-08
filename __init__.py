@@ -15,7 +15,7 @@ from .code.misc.camera import Camera
 from .code.misc.receiver import Receiver
 from .code.misc.sender import Sender
 
-LOG.warning('Running Skill Image Captioning On Python' + sys.version)
+LOG.warning('Running Skill Image Captioning On Python ' + sys.version)
 
 try:
     import picamera
@@ -52,12 +52,14 @@ class ImageCaptionSkill(MycroftSkill):
         self.connect()
 
     def connect(self):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((self.host, self.port))
-        self.receiver = Receiver(self.socket, json=True)
-        self.sender = Sender(self.socket, json=True)
-
-        LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
+        try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.connect((self.host, self.port))
+            self.receiver = Receiver(self.socket, json=True)
+            self.sender = Sender(self.socket, json=True)
+            LOG.info('connected to server:' + self.host + ' : ' + str(self.port))
+        except Exception as e:
+            LOG.warning(str(e))
 
     # @intent_file_handler('ImageCaption.voc')
     @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
