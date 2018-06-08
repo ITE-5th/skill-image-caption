@@ -28,8 +28,6 @@ except ImportError:
 
 IMAGE_CAPTIONING_PORT = 8888
 
-LOG.warning('Running Skill Image Captioning 1')
-
 
 class ImageCaptionSkill(MycroftSkill):
     def __init__(self):
@@ -45,14 +43,16 @@ class ImageCaptionSkill(MycroftSkill):
         self.socket = None
         self.receiver = None
         self.sender = None
+        self.port = None
+        self.host = None
         self.camera = Camera(width=800, height=600)
-        self.port = IMAGE_CAPTIONING_PORT
-        self.host = self.settings["server_url"]
-        LOG.info("Socket Skill started " + self.host + ":" + str(self.port))
         self.connect()
 
     def connect(self):
         try:
+            self.port = IMAGE_CAPTIONING_PORT
+            self.host = self.settings["server_url"]
+            LOG.info("Image Captioning Skill started " + self.host + ":" + str(self.port))
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((self.host, self.port))
             self.receiver = Receiver(self.socket, json=True)
@@ -79,6 +79,7 @@ class ImageCaptionSkill(MycroftSkill):
                     if retries <= 0:
                         LOG.warning('Cannot Connect')
                         self.speak('Cannot Connect')
+                        return
                     self.connect()
                     LOG.warning(str(e))
 
