@@ -51,7 +51,7 @@ class ImageCaptionSkill(MycroftSkill):
     def connect(self):
         try:
             self.port = IMAGE_CAPTIONING_PORT
-            self.host = self.settings["server_url"]
+            self.host = self.settings.get("server_url", "192.168.43.243")
             LOG.info("Image Captioning Skill started " + self.host + ":" + str(self.port))
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((self.host, self.port))
