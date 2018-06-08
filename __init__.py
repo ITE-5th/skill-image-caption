@@ -15,7 +15,7 @@ from .code.misc.camera import Camera
 from .code.misc.receiver import Receiver
 from .code.misc.sender import Sender
 
-LOG.warning('Running Skill Image Captioning On ' + sys.version)
+LOG.warning('Running Skill Image Captioning On Python' + sys.version)
 
 try:
     import picamera
@@ -67,15 +67,18 @@ class ImageCaptionSkill(MycroftSkill):
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
-            # retries = 3
-            # while retries > 0:
-            #     try:
-            self.sender.send(msg)
-            #         retries -= 1
-            #         break
-            #     except Exception as e:
-            #         self.connect()
-            #         print(str(e))
+            retries = 3
+            while retries > 0:
+                try:
+                    retries -= 1
+                    self.sender.send(msg)
+                    break
+                except Exception as e:
+                    if retries <= 0:
+                        LOG.warning('Cannot Connect')
+                        self.speak('Cannot Connect')
+                    self.connect()
+                    LOG.warning(str(e))
 
             message = self.receiver.receive()
             LOG.info(message)
