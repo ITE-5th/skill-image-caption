@@ -83,9 +83,9 @@ class ImageCaptionSkill(MycroftSkill):
                     self.connect()
                     LOG.warning(str(e))
 
-            message = self.receiver.receive()
+            result = self.receiver.receive()
             LOG.info(message)
-            self.speak(message['result'])
+            self.speak_dialog("result", result)
 
         except Exception as e:
             LOG.info('Something is wrong')
