@@ -6,11 +6,11 @@
         "name": "Settings",
         "fields": [
           {
-            "name": "model",
+            "name": "connection_type",
             "type": "select",
-            "label": "Image Model",
-            "options": "VGG|vgg;Resnet|resnet",
-            "value": "vgg"
+            "label": "Connection Type",
+            "options": "Socket|socket;HTTP|http",
+            "value": "socket"
           },
           {
             "name": "server_url",

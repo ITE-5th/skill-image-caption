@@ -9,11 +9,13 @@ from adapt.intent import IntentBuilder
 from mycroft import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
-# TODO: Make sure "." before module name is not missing
 from .code.message.image_to_text_message import ImageToTextMessage
 from .code.misc.camera import Camera
 from .code.misc.receiver import Receiver
 from .code.misc.sender import Sender
+from .default_config import DefaultConfig
+
+# TODO: Make sure "." before module name is not missing
 
 LOG.warning('Running Skill Image Captioning On Python ' + sys.version)
 
@@ -26,16 +28,12 @@ except ImportError:
     msm = MycroftSkillsManager()
     msm.install("https://github.com/ITE-5th/skill-image-caption")
 
-IMAGE_CAPTIONING_PORT = 8888
-
 
 class ImageCaptionSkill(MycroftSkill):
     def __init__(self):
         super(ImageCaptionSkill, self).__init__("ImageCaptionSkill")
         LOG.warning('Running Skill Image Captioning ')
 
-        if "model" not in self.settings:
-            self.settings["model"] = "vgg"
         if "server_url" not in self.settings:
             self.settings["server_url"] = "192.168.43.243"
         # TODO resize image according to specific network
@@ -50,8 +48,8 @@ class ImageCaptionSkill(MycroftSkill):
 
     def connect(self):
         try:
-            self.port = IMAGE_CAPTIONING_PORT
-            self.host = self.settings.get("server_url", "192.168.43.243")
+            self.port = DefaultConfig.IMAGE_CAPTIONING_PORT
+            self.host = self.settings.get("server_url", DefaultConfig.server_url)
             LOG.info("Image Captioning Skill started " + self.host + ":" + str(self.port))
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((self.host, self.port))
@@ -61,7 +59,22 @@ class ImageCaptionSkill(MycroftSkill):
         except Exception as e:
             LOG.warning(str(e))
 
-    # @intent_file_handler('ImageCaption.voc')
+    def ensure_send(self, msg):
+        retries = 3
+        while retries > 0:
+            try:
+                retries -= 1
+                self.sender.send(msg)
+                break
+            except Exception as e:
+                if retries <= 0:
+                    LOG.warning('Cannot Connect')
+                    self.speak('Cannot Connect')
+                    return False
+                self.connect()
+                LOG.warning(str(e))
+        return True
+
     @intent_handler(IntentBuilder("CaptionIntent").require('ImageCaption'))
     def caption(self, message):
         # LOG.info('Handling ' + message)
@@ -69,19 +82,10 @@ class ImageCaptionSkill(MycroftSkill):
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
-            retries = 3
-            while retries > 0:
-                try:
-                    retries -= 1
-                    self.sender.send(msg)
-                    break
-                except Exception as e:
-                    if retries <= 0:
-                        LOG.warning('Cannot Connect')
-                        self.speak('Cannot Connect')
-                        return
-                    self.connect()
-                    LOG.warning(str(e))
+            sent = self.ensure_send(msg)
+            if not sent:
+                self.speak_dialog('RegisterError')
+                return False
 
             result = self.receiver.receive()
             LOG.info(result)
