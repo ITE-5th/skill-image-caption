@@ -3,16 +3,13 @@ import time
 
 import picamera
 
-pi_camera = picamera.PiCamera()
-
 
 class Camera:
 
     def __init__(self, width=800, height=600, vflip=True, hflip=True):
-        self.camera = pi_camera
-        self.camera.vflip = vflip
-        self.camera.hflip = hflip
-        self.camera.resolution = (width, height)
+        self.vflip = vflip
+        self.hflip = hflip
+        self.resolution = (width, height)
 
     def take_image(self, face_count=0):
         import os
@@ -23,7 +20,11 @@ class Camera:
 
         file_name = temp_dir + time.strftime("%Y%m%d-%H%M%S") + '.jpg'
 
-        self.camera.capture(file_name)
+        with picamera.PiCamera() as camera:
+            camera.vflip = self.vflip
+            camera.hflip = self.hflip
+            camera.resolution = self.resolution
+            camera.capture(file_name)
         with open(file_name, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
         if face_count > 0:

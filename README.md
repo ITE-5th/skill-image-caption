@@ -8,5 +8,5 @@ Describes image from connected camera using remote server
  * "caption"
 
 ## Credits
-FITE-PRO
+ITE-5th
 
