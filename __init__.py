@@ -34,8 +34,8 @@ class ImageCaptionSkill(MycroftSkill):
         super(ImageCaptionSkill, self).__init__("ImageCaptionSkill")
         LOG.warning('Running Skill Image Captioning ')
 
-        if "server_url" not in self.settings:
-            self.settings["server_url"] = "192.168.43.243"
+        # if "server_url" not in self.settings:
+        #     self.settings["server_url"] = "192.168.43.243"
         # TODO resize image according to specific network
 
         self.socket = None
