@@ -69,7 +69,6 @@ class ImageCaptionSkill(MycroftSkill):
             except Exception as e:
                 if retries <= 0:
                     LOG.warning('Cannot Connect')
-                    self.speak('Cannot Connect')
                     return False
                 self.connect()
                 LOG.warning(str(e))
