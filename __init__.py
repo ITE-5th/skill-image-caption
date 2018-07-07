@@ -79,23 +79,24 @@ class ImageCaptionSkill(MycroftSkill):
     def caption(self, message):
         # LOG.info('Handling ' + message)
         try:
+            self.speak_dialog('Start')
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
             sent = self.ensure_send(msg)
             if not sent:
-                self.speak_dialog('RegisterError')
+                self.speak_dialog('ConnectionError')
                 return False
 
             result = self.receiver.receive()
             LOG.info(result)
-            self.speak_dialog("result", result)
+            self.speak_dialog("Result", result)
 
         except Exception as e:
             LOG.info('Something is wrong')
             LOG.info(str(e))
             LOG.info(str(traceback.format_exc()))
-            self.speak("Exception")
+            self.speak_dialog("UnknownError")
             self.connect()
             return False
         return True
