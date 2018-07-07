@@ -78,7 +78,7 @@ class ImageCaptionSkill(MycroftSkill):
     def caption(self, message):
         # LOG.info('Handling ' + message)
         try:
-            self.speak_dialog('Start')
+            # self.speak_dialog('Start')
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
