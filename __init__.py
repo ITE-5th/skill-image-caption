@@ -68,8 +68,7 @@ class ImageCaptionSkill(MycroftSkill):
                 break
             except Exception as e:
                 if retries <= 0:
-                    LOG.warning('Cannot Connect')
-                    return False
+                    raise ConnectionError()
                 self.connect()
                 LOG.warning(str(e))
         return True
@@ -82,14 +81,13 @@ class ImageCaptionSkill(MycroftSkill):
             image, _ = self.camera.take_image()
 
             msg = ImageToTextMessage(image)
-            sent = self.ensure_send(msg)
-            if not sent:
-                self.speak_dialog('ConnectionError')
-                return False
-
+            self.ensure_send(msg)
             result = self.receiver.receive()
             LOG.info(result)
             self.speak_dialog("Result", result)
+
+        except ConnectionError as e:
+            self.speak_dialog('ConnectionError')
 
         except Exception as e:
             LOG.info('Something is wrong')
@@ -97,7 +95,8 @@ class ImageCaptionSkill(MycroftSkill):
             LOG.info(str(traceback.format_exc()))
             self.speak_dialog("UnknownError")
             self.connect()
-            return False
+
+
         return True
 
     def stop(self):
