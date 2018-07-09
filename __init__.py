@@ -52,6 +52,7 @@ class ImageCaptionSkill(MycroftSkill):
             self.host = self.settings.get("server_url", DefaultConfig.server_url)
             LOG.info("Image Captioning Skill started " + self.host + ":" + str(self.port))
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.settimeout(10)
             self.socket.connect((self.host, self.port))
             self.receiver = Receiver(self.socket, json=True)
             self.sender = Sender(self.socket, json=True)
